@@ -17,7 +17,23 @@ var password;
 
 
 function pwLength(){
+  var isValidAnswer = false;
 
+  while (isValidAnswer == false){
+    passwordLength = prompt("How many characters should the password be? Select between 8 and 128.");
+    if (passwordLength < 8){
+      alert("You chose an invalid number! Please select between 8 or 128!" + " " + isValidAnswer);
+      passwordLength = null;
+    } else if(passwordLength > 128){
+      alert("You chose an invalid number! Please select between 8 or 128!");
+      passwordLength = null;
+    } else if (!isNaN(passwordLength) == false){
+      alert("You chose an invalid number! Please select between 8 or 128!");
+      passwordLength = null;
+    } else{
+      isValidAnswer = true;
+    }
+  }
 }
 
 function charType(){
@@ -104,8 +120,27 @@ function charType(){
 }
 
 function recapParams(){
-
+  if (characters.length == 4){
+    alert("Your password will contain " + passwordLength + " characters, and it will include uppercase and lowercase letters, numbers, and special characters.");
+  } else if (characters.length == 3){
+    alert("Your password will contain " + passwordLength + " characters, and it will include " + characters[0] + ", " + characters[1]  + " and " +characters[2]+ ".");
+  } else if (characters.length == 2){
+    alert("Your password will contain " + passwordLength + " characters, and it will include " + characters[0] + " and " + characters[1]);
+  } else if(characters.length ==1){
+    alert("Your password will contain " + passwordLength + " characters, and it will only include " + characters[0] + ".");
+  } 
 }
+
+function generatePw(){
+  var random;
+  for (var i=0; i<passwordLength; i++){
+    passwordArray.push(finalPool[Math.floor(Math.random()*finalPool.length)]);
+  }
+  password=passwordArray.join("");
+  console.log(password);
+  return password;
+}
+
 // Write password to the #password input
 function writePassword() {
   password = generatePw();
