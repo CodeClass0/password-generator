@@ -1,9 +1,14 @@
 // Assignment Code
+
+//Declare global variables
 var generateBtn = document.querySelector("#generate");
-var finalPool = [];
-var characters = [];
-var passwordLength;
-var pool = {
+var finalPool = []; //This will be what the final character types are stored in as chosen by the user.
+var characters = []; //Used for outputting their selections before generating the password.
+var passwordLength; 
+
+//this object has all the possible characters, and as I ask teh user what character type they want, I'll pull elements
+//from this object to fill out the finalPool array. 
+var pool = { 
   upperLetters: ["A","B",'C','D','E','F','G','H','I','J','K','L','M','N','O',
   'P','Q','R','S','T','U','V','W','X','Y','Z'],
   lowerLetters: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
@@ -11,12 +16,12 @@ var pool = {
   numbers: [1,2,3,4,5,6,7,8,9,0],
   special: ['!','@','#','$','%','^','&','*','-','_'],
 };
-var passwordArray = [];
+var passwordArray = []; //Used for holding the output from the loop that randomly chooses elements of final Loop before being written as a string.
 var password;
 
 
 
-function pwLength(){
+function pwLength(){ //Get and validate user input for pasword length.
   var isValidAnswer = false;
 
   while (isValidAnswer == false){
@@ -36,7 +41,7 @@ function pwLength(){
   }
 }
 
-function charType(){
+function charType(){ //Get and validate character types from user.
   var hasAtLeastOne = false;
 
   while (hasAtLeastOne == false){ //This while loop is what will restart the question prompts if a user doesn't choose a type.
@@ -45,8 +50,10 @@ function charType(){
     //Check if user wants letters.
     answer = prompt("Would you like lowercase letters in your password? y/n");
     if (answer == "y"){
-      characters.push("lowercase letters");   //This adds the selection to an array that's called when we recap the choices later.
-      for (var i = 0; i < pool.lowerLetters.length; i++){ //here we add the content from the letters array within the pool object to the final pool.
+      characters.push("lowercase letters");   //This adds the selection to an array that's used when we recap the choices later.
+      
+      //This loops through the lowercase letters array of the pool object, and writes each element to the finalPool array.
+      for (var i = 0; i < pool.lowerLetters.length; i++){ 
         finalPool.push(pool.lowerLetters[i]);
       }
       hasAtLeastOne = true;
@@ -63,8 +70,8 @@ function charType(){
     //Check if user wants letters.
     answer = prompt("Would you like uppercase letters in your password? y/n");
     if (answer == "y"){
-      characters.push("uppercase letters");   //This adds the selection to an array that's called when we recap the choices later.
-      for (var i = 0; i < pool.upperLetters.length; i++){ //here we add the content from the letters array within the pool object to the final pool.
+      characters.push("uppercase letters");   
+      for (var i = 0; i < pool.upperLetters.length; i++){
         finalPool.push(pool.upperLetters[i]);
       }
       hasAtLeastOne = true;
@@ -119,7 +126,7 @@ function charType(){
   }
 }
 
-function recapParams(){
+function recapParams(){ //read back the selections made by the user.
   if (characters.length == 4){
     alert("Your password will contain " + passwordLength + " characters, and it will include uppercase and lowercase letters, numbers, and special characters.");
   } else if (characters.length == 3){
@@ -131,8 +138,15 @@ function recapParams(){
   } 
 }
 
-function generatePw(){
+
+//using passwordLength for the number of iterations through a loop that will randomly select
+//one element from the finalPool array, and then write the contents of that array to a single string with .join.
+function generatePw(){ 
   var random;
+
+  //I'm using password length for the number of times to loop through and generate a random number up to the length of the finalPool array.
+  //That number references an item inside the finalPool array, which is the npushed to the passwordArray. 
+  //Once done looping, passwordArray is joined into a string and given back to the writePassword function that called it.
   for (var i=0; i<passwordLength; i++){
     passwordArray.push(finalPool[Math.floor(Math.random()*finalPool.length)]);
   }
