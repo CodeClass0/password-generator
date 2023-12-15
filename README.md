@@ -18,4 +18,4 @@ https://codeclass0.github.io/password-generator/
 
 Click the link above, or view the finished project screenshot below.
 
-![screenshot of finished product](assets/images/screenshot.jpg)
+![screenshot of finished product](/assets/images/screenshot.jpg)
